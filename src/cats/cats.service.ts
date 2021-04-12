@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 
 import { RedisService } from '../shared/redis.service';
 
@@ -9,7 +9,7 @@ import { UpdateCatDto } from './dto/update-cat.dto';
 export class CatsService {
     redis: RedisService;
 
-    constructor(redisService: RedisService) {
+    constructor(redisService: RedisService, public logger: Logger) {
         this.redis = redisService;
     }
 
@@ -19,6 +19,7 @@ export class CatsService {
 
     async findAll() {
         await this.redis.set('lxing', new Date().toISOString(), 300);
+        this.logger.debug('logger debug');
         return `This action returns all cats`;
     }
 

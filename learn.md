@@ -38,7 +38,7 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 
 ### middleware
 
-实现`NestMiddleware`, 在`module`的`configure`里配进去
+实现`NestMiddleware`, 在`module`的`configure`里配进去, 中间件是最先执行的, 所有无法感知之后的 controller, 所以不能和 controll 进行绑定
 
 ### 管道
 插在注入controller.method之前, 验证/转换从实际 ctx 提取的参数
