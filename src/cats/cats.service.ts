@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
+
+import { RedisService } from '../shared/redis.service';
+
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
 @Injectable()
 export class CatsService {
-  create(createCatDto: CreateCatDto) {
-    return 'This action adds a new cat';
-  }
+    redis: RedisService;
 
-  findAll() {
-    return `This action returns all cats`;
-  }
+    constructor(redisService: RedisService) {
+        this.redis = redisService;
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cat`;
-  }
+    create(createCatDto: CreateCatDto) {
+        return 'This action adds a new cat';
+    }
 
-  update(id: number, updateCatDto: UpdateCatDto) {
-    return `This action updates a #${id} cat`;
-  }
+    async findAll() {
+        await this.redis.set('lxing', new Date().toISOString(), 300);
+        return `This action returns all cats`;
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} cat`;
-  }
+    findOne(id: number) {
+        return `This action returns a #${id} cat`;
+    }
+
+    update(id: number, updateCatDto: UpdateCatDto) {
+        return `This action updates a #${id} cat`;
+    }
+
+    remove(id: number) {
+        return `This action removes a #${id} cat`;
+    }
 }
