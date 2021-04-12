@@ -8,7 +8,7 @@ export class RedisService {
 
     constructor(config: ConfigService) {
         console.log('redis', config.redis());
-        this.client = new RedisClient({ url: config.redis() });
+        this.client = new RedisClient(config.redis());
     }
 
     get(k: string): Promise<string> {

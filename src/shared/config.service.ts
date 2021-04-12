@@ -9,6 +9,12 @@ export class ConfigService {
     }
 
     redis() {
-        return 'redis://127.0.0.1:6369/5?db=5';
+        return {
+            db: 5,
+        };
+    }
+
+    get port() {
+        return 8000;
     }
 }
