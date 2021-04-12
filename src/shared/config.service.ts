@@ -8,13 +8,13 @@ export class ConfigService {
         };
     }
 
-    redis() {
+    get redis() {
         return {
             db: 5,
         };
     }
 
     get port() {
-        return 8000;
+        return 3010;
     }
 }

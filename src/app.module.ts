@@ -5,9 +5,10 @@
 import { Module } from '@nestjs/common';
 import { CatsModule } from './cats/cats.module';
 import { SharedModule } from './shared/shared.module';
+import { DogsModule } from './dogs/dogs.module';
 
 @Module({
-    imports: [CatsModule, SharedModule],
+    imports: [CatsModule, SharedModule, DogsModule],
     providers: [],
 })
 export class AppModule {}

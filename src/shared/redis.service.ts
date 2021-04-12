@@ -7,8 +7,7 @@ export class RedisService {
     client: RedisClient;
 
     constructor(config: ConfigService) {
-        console.log('redis', config.redis());
-        this.client = new RedisClient(config.redis());
+        this.client = new RedisClient(config.redis);
     }
 
     get(k: string): Promise<string> {
