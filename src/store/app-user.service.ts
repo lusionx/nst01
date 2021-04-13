@@ -27,10 +27,9 @@ export class AppUserService extends Model<AppUserAttr, Attr4Create> {
                 },
             },
             {
-                tableName: 'app_user',
+                tableName: 'user',
                 modelName: AppUserService.name,
                 freezeTableName: true,
-                updatedAt: false,
                 sequelize: config.sequelize,
             },
         );

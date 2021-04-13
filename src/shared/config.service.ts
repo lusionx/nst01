@@ -20,8 +20,12 @@ export class ConfigService {
         return 3010;
     }
 
+    private _singleSequelize: Sequelize;
+
     get sequelize() {
+        if (this._singleSequelize) return this._singleSequelize;
         this.logger.debug('config get sequelize');
-        return new Sequelize('mysql://root:123123@127.0.0.1/mingpian', {});
+        const seq = new Sequelize('mysql://root:123123@127.0.0.1/mingpian', {});
+        return (this._singleSequelize = seq);
     }
 }

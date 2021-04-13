@@ -5,11 +5,10 @@
 import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
 import { CatsModule } from './cats/cats.module';
 import { DogsModule } from './dogs/dogs.module';
-import { SharedModule } from './shared/shared.module';
 import { ChanMiddleware } from './shared/chan.middleware';
 
 @Module({
-    imports: [CatsModule, SharedModule, DogsModule],
+    imports: [CatsModule, DogsModule],
     providers: [],
 })
 export class AppModule implements NestModule {

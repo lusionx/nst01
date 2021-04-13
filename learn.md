@@ -16,7 +16,9 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 
 ### Providers
 
-抽象父类, 被 di 管理生命周期`@Injectable()`,
+抽象父类, 万物都是 provider, 被 di 管理生命周期`@Injectable()`,
+
+最典型是是个 class, 在 constructor 里管理依赖
 
 ### controller
 `xxx/xxx.controller.ts` 具体的业务入口, 依赖 service 等其他服务, 方法的参数可以被注入
@@ -34,11 +36,11 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 
 ### service
 
-`xxx/xxx.service.ts`, 小功能函数的实现, 注入到 controller 使用, 也能 service 直接嵌套
+`xxx/xxx.service.ts`, 小功能函数的实现, 注入到 controller 使用, 也能 service 直接嵌套, 不参与生命周期
 
 ### middleware
 
-实现`NestMiddleware`, 在`module`的`configure`里配进去, 中间件是最先执行的, 所有无法感知之后的 controller, 所以不能和 controll 进行绑定
+可选实现`NestMiddleware`, 在`module`的`configure`里配进去, 中间件是最先执行的, 所有无法感知之后的 controller, 所以不能和 controll 进行绑定
 
 ### 管道
 插在注入controller.method之前, 验证/转换从实际 ctx 提取的参数
