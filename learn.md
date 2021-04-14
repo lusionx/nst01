@@ -25,6 +25,13 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 
 自己不知道实际的 ctx, 靠 di 把真实的上下文数据给 TA
 
+### dto
+
+对外部参数的映射, 必须是 class, 但不能有方法
+- 本质还是外部合法参数的 clone, 并没有 new
+- 功能上 interface 能满足, 但 interface 不能注入
+
+
 ### module
 
 `xxx/xxx.module.ts`, 独立/单例的container, 组织的自己 di, 可以依赖其他module(使用 exports)

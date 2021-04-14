@@ -14,8 +14,8 @@ export class CatsService {
         this.redis = redisService;
     }
 
-    create(createCatDto: CreateCatDto) {
-        return 'This action adds a new cat';
+    create(cat: CreateCatDto) {
+        return 'This action adds a new cat of' + cat.name;
     }
 
     async findAll() {
