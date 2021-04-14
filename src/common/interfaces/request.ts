@@ -1,6 +1,6 @@
 import { IncomingMessage } from 'http';
 import { Request } from 'express';
-import { AppUserService } from 'src/store/app-user.service';
+import { AppUserStore } from 'src/store/app-user.service';
 
 export type OrigExpRequest = Request;
 
@@ -31,5 +31,5 @@ export interface ExpRequest extends IncomingMessage {
 }
 
 export class ChanSpace {
-    public session: AppUserService;
+    public session: AppUserStore;
 }

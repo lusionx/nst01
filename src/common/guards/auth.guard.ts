@@ -13,12 +13,13 @@ import { ExpRequest } from '../interfaces/request';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
+    constructor(protected model: AppUserService) {}
     async canActivate(context: ExecutionContext): Promise<boolean> {
         const req = context.switchToHttp().getRequest<ExpRequest>();
 
         const token = req.header('x-auth-token') || req.query['token'];
         if (!token) return false;
-        const user = await AppUserService.single(token | 0);
+        const user = await this.model.single(token | 0);
         if (!user) return false;
         req.space.session = user;
 

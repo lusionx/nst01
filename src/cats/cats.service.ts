@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 
 import { RedisService } from '../shared/redis.service';
-import { AppUserService } from '../store/app-user.service';
+import { AppUserStore } from '../store/app-user.service';
 
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
@@ -20,7 +20,7 @@ export class CatsService {
 
     async findAll() {
         await this.redis.set('lxing', new Date().toISOString(), 300);
-        await AppUserService.findAll();
+        await AppUserStore.findAll();
         return `This action returns all cats`;
     }
 
