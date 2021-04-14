@@ -6,11 +6,15 @@ import {
     Patch,
     Param,
     Delete,
+    UseGuards,
 } from '@nestjs/common';
+import { RoleGuard, SetRoles } from 'src/common/guards/role.guard';
+import { AuthGuard } from '../common/guards/auth.guard';
 import { CatsService } from './cats.service';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { UpdateCatDto } from './dto/update-cat.dto';
 
+@UseGuards(AuthGuard)
 @Controller('cats')
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
@@ -21,6 +25,8 @@ export class CatsController {
     }
 
     @Get()
+    @UseGuards(RoleGuard)
+    @SetRoles('admin')
     findAll() {
         return this.catsService.findAll();
     }

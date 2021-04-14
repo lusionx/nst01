@@ -49,7 +49,7 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 - method 级别验证 body
 
 ### 守卫 guard
-能拿到`ctx: ExecutionContext`, 通过配置 mateDate, 在实现是 canActive 时处理
+能拿到`ctx: ExecutionContext`, 通过配置 metaDate, 在实现是 canActive 时处理
 
 
 ### 拦截器 interceptor

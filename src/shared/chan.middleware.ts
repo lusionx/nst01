@@ -4,13 +4,20 @@
 
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
+import { ChanSpace } from 'src/common/interfaces/request';
 
 import { reqChan } from '../consts';
 
 @Injectable()
 export class ChanMiddleware implements NestMiddleware {
     use(req: Request, res: Response, next: NextFunction) {
-        req[reqChan] = {};
+        req[reqChan] = new ChanSpace();
+
+        Object.defineProperty(req, 'space', {
+            get: () => {
+                return req[reqChan];
+            },
+        });
         next();
     }
 }

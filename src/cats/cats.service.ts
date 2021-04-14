@@ -20,7 +20,6 @@ export class CatsService {
 
     async findAll() {
         await this.redis.set('lxing', new Date().toISOString(), 300);
-        this.logger.debug('logger debug');
         await AppUserService.findAll();
         return `This action returns all cats`;
     }
