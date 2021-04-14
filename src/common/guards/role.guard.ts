@@ -2,6 +2,7 @@ import {
     CanActivate,
     ExecutionContext,
     Injectable,
+    NotFoundException,
     SetMetadata,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
@@ -22,8 +23,9 @@ export class RoleGuard implements CanActivate {
         console.log(req.space);
         const { session } = req.space;
         if (!session) return false;
+        if (roles.includes(session.role)) return true;
 
-        return roles.includes(session.role);
+        throw new NotFoundException();
     }
 }
 

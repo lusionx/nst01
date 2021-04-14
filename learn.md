@@ -38,8 +38,8 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 
 以是否包含 controller 区分2种 module,
 
-- yes 应该至少包含 module&controller, 只被顶级 app.module 引用
-- no module&其他, 被其他子 module 引用
+- yes 应该至少包含 module&controller, 只被顶级 app.module 引用, 对外提供服务
+- no module&其他, 被其他子 module 引用, 内部代码
 
 ### service
 
