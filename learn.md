@@ -44,7 +44,7 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 理解参数
 - imports: 其他 module(含 exports), 按 namespace 理解,
 - providers: 具体的 service 类, 能从 imports 里找到
-- controllers: 本 module 里干活的
+- controllers: 本 module 里干活的, 需要装饰`@Controller`
 - exports: 能被其他 module 查找的 service
 
 ### service

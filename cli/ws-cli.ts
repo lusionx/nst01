@@ -10,17 +10,15 @@ function open() {
         socket.addEventListener('error', (err) => {
             console.log(err);
         });
+        socket.addEventListener('message', (evt) => {
+            console.log(evt.data);
+        });
     });
 }
 
 async function main() {
     const socket = await open();
-    socket.send(
-        JSON.stringify({
-            event: 'events',
-            data: 'test',
-        }),
-    );
+    socket.send(JSON.stringify({ event: 'events', data: 'test' }));
 }
 
 process.nextTick(main);
