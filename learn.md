@@ -41,6 +41,12 @@ ctx:ExecutionContext 真实的上下文, 在默认情况下只Request, 也支持
 - yes 应该至少包含 module&controller, 只被顶级 app.module 引用, 对外提供服务
 - no module&其他, 被其他子 module 引用, 内部代码
 
+理解参数
+- imports: 其他 module(含 exports), 按 namespace 理解,
+- providers: 具体的 service 类, 能从 imports 里找到
+- controllers: 本 module 里干活的
+- exports: 能被其他 module 查找的 service
+
 ### service
 
 `xxx/xxx.service.ts`, 小功能函数的实现, 注入到 controller 使用, 也能 service 直接嵌套, 不参与生命周期

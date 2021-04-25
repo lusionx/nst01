@@ -4,7 +4,9 @@
  * - token
  * - jwt
  * - ip 限流
- *
+ * ---------------------
+ * 当返回 false 时默认按 403 处理
+ * 也可以直接抛异常干预响应
  */
 
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
