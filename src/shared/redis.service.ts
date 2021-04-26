@@ -1,30 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { RedisClient } from 'redis';
+import ioredis, { Redis } from 'ioredis';
 import { ConfigService } from './config.service';
 
 @Injectable()
 export class RedisService {
-    client: RedisClient;
+    client: Redis;
 
     constructor(config: ConfigService) {
-        this.client = new RedisClient(config.redis);
+        this.client = new ioredis(config.redis);
     }
 
-    get(k: string): Promise<string> {
-        const { client } = this;
-        return new Promise<string>((res, rej) => {
-            client.GET(k, (err, reply) => {
-                err ? rej(err) : res(reply || '');
-            });
-        });
+    async getJSON<T>(k: string): Promise<T | undefined> {
+        const v = await this.client.get(k);
+        if (v) {
+            return JSON.parse(v) as T;
+        }
     }
-
-    set(k: string, v: string, ss: number): Promise<'OK' | undefined> {
-        const { client } = this;
-        return new Promise<'OK' | undefined>((res, rej) => {
-            client.SET(k, v, 'EX', ss, (err, reply) => {
-                err ? rej(err) : res(reply);
-            });
-        });
+    async setEX(k: string, v: string, ss: number) {
+        return this.client.set(k, v, 'EX', ss);
     }
 }

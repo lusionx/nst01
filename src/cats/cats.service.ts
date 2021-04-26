@@ -19,7 +19,7 @@ export class CatsService {
     }
 
     async findAll() {
-        await this.redis.set('lxing', new Date().toISOString(), 300);
+        await this.redis.setEX('lxing', new Date().toISOString(), 300);
         await AppUserStore.findAll();
         return `This action returns all cats`;
     }
