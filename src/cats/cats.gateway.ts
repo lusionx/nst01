@@ -4,31 +4,56 @@
  * 用 this.server.clients 查找非本 client
  */
 
+import { Logger } from '@nestjs/common';
 import {
+    ConnectedSocket,
+    MessageBody,
+    OnGatewayConnection,
     SubscribeMessage,
     WebSocketGateway,
     WebSocketServer,
     WsResponse,
 } from '@nestjs/websockets';
-import { from, Observable } from 'rxjs';
+import { IncomingMessage } from 'http';
+import * as Rx from 'rxjs';
 import { map } from 'rxjs/operators';
 import WebSocket, { Server } from 'ws';
 
 @WebSocketGateway()
-export class CatsGateway {
+export class CatsGateway implements OnGatewayConnection {
+    constructor(public logger: Logger) {
+        const _fn = async () => {
+            if (this.server) {
+                this.logger.debug(
+                    'server.clients.size' + this.server.clients.size.toString(),
+                );
+            }
+            setTimeout(_fn, 2000);
+        };
+        _fn();
+    }
+
+    handleConnection(cli: WebSocket, req: IncomingMessage) {
+        if (!req.url) return cli.terminate();
+        console.log(req.url);
+        if (req.url.includes('0.9')) {
+            return cli.terminate();
+        }
+    }
+
     @WebSocketServer()
     server: Server;
 
     @SubscribeMessage('events')
-    onEvent(client: WebSocket, data: any): Observable<WsResponse<number>> {
+    onEvent(
+        @ConnectedSocket() client: WebSocket,
+        @MessageBody() data: any,
+    ): Rx.Observable<WsResponse<number>> {
         for (const s of this.server.clients) {
             // 当需要串 client 发消息时
             console.log(s === client);
         }
-        console.log(client.terminate);
-        client.pong();
-        console.log(data);
-        return from([1, 2, 3]).pipe(
+        return Rx.from([1, 2, 3]).pipe(
             map((item) => ({ event: 'events', data: item })),
         );
     }
