@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import ioredis, { Redis } from 'ioredis';
+import IORedis, { Redis } from 'ioredis';
 import { ConfigService } from './config.service';
 
 @Injectable()
@@ -7,7 +7,7 @@ export class RedisService {
     client: Redis;
 
     constructor(config: ConfigService) {
-        this.client = new ioredis(config.redis);
+        this.client = new IORedis(config.redis);
     }
 
     async getJSON<T>(k: string): Promise<T | undefined> {
